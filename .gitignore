@@ -1,0 +1,32 @@
+# Secrets — NEVER commit these. Your API key and password live here.
+.env
+.env.local
+.env*.local
+
+# Dependencies — huge, and rebuilt automatically from package.json
+/node_modules
+
+# Next.js build output — regenerated on every build
+/.next
+/out
+
+# Production build
+/build
+
+# Logs and debug files
+*.log
+npm-debug.log*
+
+# macOS clutter
+.DS_Store
+
+# Editor folders
+.vscode
+.idea
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
