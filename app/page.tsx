@@ -166,7 +166,7 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
   const hasDraft = Boolean(draft) && !loading;
   const outputText = loading
     ? "Drafting your email…"
-    : draft || "Your clean, ready-to-send draft appears here.";
+    : draft || "Your clean draft shows up here. Feed me the mess first.";
 
   return (
     <main className="page">
@@ -248,7 +248,7 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
                 )}
               </button>
 
-              <span className="hint">Runs on a live model. Takes a few seconds.</span>
+              <span className="hint">Runs on a real model, not a screenshot. Give it a few seconds to think.</span>
 
               {error && (
                 <div className="error-box" role="alert">
@@ -325,7 +325,7 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
       </div>
 
       <footer className="wrap site-footer">
-        Built by Ray Ocampo. This page runs a live model, not a screenshot.
+        Built by Ray Ocampo. No screenshots were harmed, or used, in making this page.
         <div className="contact">
           <a href="mailto:raybocampo@gmail.com">raybocampo@gmail.com</a>
           {" · "}
