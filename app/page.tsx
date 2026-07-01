@@ -51,7 +51,6 @@ export default function Home() {
 
       {/* WHAT'S COMING NEXT */}
       <section className="lp-wrap lp-section">
-        <p className="lp-eyebrow">Coming next</p>
         <h2 className="lp-heading">What&apos;s coming next</h2>
         <div className="lp-cards">
           <div className="lp-card">
