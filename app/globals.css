@@ -504,6 +504,249 @@ html, body {
   border-color: var(--accent);
 }
 
+/* ---------- Public landing page (new design system) ---------- */
+.landing {
+  /* Palette */
+  --lp-cream: #F5EFE3;
+  --lp-ink: #2A2018;
+  --lp-muted: #5A4F3E;
+  --lp-muted-2: #8A7C66;
+  --lp-divider: #E3D9C7;
+  --lp-green: #1E2A22;
+  --lp-green-hover: #2A3A30;
+  --lp-cream-text: #F1ECDF;
+  --lp-red: #BE3A34;
+  --lp-koa: #6E4522;
+  --lp-green-frame: #3A5145;
+
+  min-height: 100vh;
+  background: var(--lp-cream);
+  color: var(--lp-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.lp-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* Eyebrow + links: the only places hibiscus red appears */
+.lp-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lp-red);
+  margin-bottom: 22px;
+}
+
+/* Hero */
+.lp-hero {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 96px 28px 64px;
+}
+
+.lp-hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.lp-name {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(56px, 11vw, 108px);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  color: var(--lp-ink);
+}
+
+.lp-intro {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.5;
+  color: var(--lp-ink);
+  max-width: 34ch;
+  margin-top: 24px;
+}
+
+.lp-role {
+  font-size: 15px;
+  color: var(--lp-muted-2);
+  margin-top: 18px;
+}
+
+/* Headshot in a green frame */
+.lp-headshot-frame {
+  flex-shrink: 0;
+  background: var(--lp-green-frame);
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 24px 50px -28px rgba(42, 32, 24, 0.55);
+}
+
+.lp-headshot {
+  display: block;
+  width: 260px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* Primary button: deep green */
+.lp-btn-primary {
+  display: inline-block;
+  margin-top: 32px;
+  background: var(--lp-green);
+  color: var(--lp-cream-text);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.lp-btn-primary:hover { background: var(--lp-green-hover); }
+.lp-btn-primary:focus-visible { outline: 2px solid var(--lp-green); outline-offset: 3px; }
+
+/* Outline button: koa brown */
+.lp-btn-outline {
+  display: inline-block;
+  margin-top: 28px;
+  background: transparent;
+  color: var(--lp-koa);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border: 1.5px solid var(--lp-koa);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lp-btn-outline:hover { background: var(--lp-koa); color: var(--lp-cream-text); }
+.lp-btn-outline:focus-visible { outline: 2px solid var(--lp-koa); outline-offset: 3px; }
+
+/* Hairline divider */
+.lp-divider {
+  height: 1px;
+  background: var(--lp-divider);
+}
+
+/* Sections */
+.lp-section {
+  padding: 56px 28px;
+}
+
+.lp-heading {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(28px, 4.5vw, 44px);
+  line-height: 1.06;
+  letter-spacing: 0.01em;
+  color: var(--lp-ink);
+  max-width: 20ch;
+}
+
+.lp-body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--lp-muted);
+  max-width: 68ch;
+  margin-top: 20px;
+}
+
+/* Currently line */
+.lp-currently {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--lp-ink);
+  max-width: 62ch;
+}
+
+.lp-currently-label { font-weight: 700; }
+
+.lp-currently a {
+  color: var(--lp-red);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(190, 58, 52, 0.35);
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
+}
+
+.lp-currently a:hover { border-color: var(--lp-red); }
+
+/* Contact links (hibiscus red) */
+.lp-contact {
+  font-size: 17px;
+  color: var(--lp-muted);
+  margin-top: 14px;
+}
+
+.lp-contact a {
+  color: var(--lp-red);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(190, 58, 52, 0.35);
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
+}
+
+.lp-contact a:hover { border-color: var(--lp-red); }
+.lp-sep { color: var(--lp-muted-2); padding: 0 8px; }
+
+/* Footer band: solid koa for now.
+   To add a wood texture later, set background-image on .lp-footer:
+   background-image: url("/wood.jpg"); background-size: cover; background-position: center; */
+.lp-footer {
+  margin-top: 24px;
+  background-color: var(--lp-koa);
+}
+
+.lp-footer-inner {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: var(--lp-cream-text);
+  font-size: 15px;
+}
+
+/* Landing responsive: stack hero, headshot on top */
+@media (max-width: 720px) {
+  .lp-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding-top: 64px;
+  }
+  .lp-headshot-frame { order: -1; align-self: stretch; }
+  .lp-headshot { width: 100%; height: auto; aspect-ratio: 4 / 5; }
+}
+
+/* "Back to site" link on the demo page */
+.backlink {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 12px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.backlink:hover {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}
+
 /* ---------- Loading state ---------- */
 .checking {
   padding-top: 120px;

@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono, Anton, Inter } from "next/font/google";
 import "./globals.css";
+
+// Landing page: bold condensed display face for the all-caps headline.
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton",
+  display: "swap",
+});
+
+// Landing page: clean, readable face for body text.
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 // Bold display face for the big headline.
 const display = Bricolage_Grotesque({
@@ -37,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable} ${anton.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );
