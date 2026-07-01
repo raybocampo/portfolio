@@ -512,6 +512,8 @@ html, body {
   --lp-muted: #5A4F3E;
   --lp-muted-2: #8A7C66;
   --lp-divider: #E3D9C7;
+  --lp-cream-card: #ECE3D4;
+  --lp-card-border: rgba(110, 69, 34, 0.18);
   --lp-green: #1E2A22;
   --lp-green-hover: #2A3A30;
   --lp-cream-text: #F1ECDF;
@@ -657,6 +659,49 @@ html, body {
   color: var(--lp-muted);
   max-width: 68ch;
   margin-top: 20px;
+}
+
+/* "What's coming next" cards */
+.lp-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.lp-card {
+  background: var(--lp-cream-card);
+  border: 1px solid var(--lp-card-border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.lp-card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lp-koa);
+  margin-bottom: 12px;
+}
+
+.lp-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--lp-ink);
+  margin-bottom: 6px;
+}
+
+.lp-card-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--lp-muted);
+}
+
+@media (max-width: 720px) {
+  .lp-cards { grid-template-columns: 1fr; }
 }
 
 /* Currently line */

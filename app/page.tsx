@@ -49,6 +49,39 @@ export default function Home() {
         <div className="lp-divider" />
       </div>
 
+      {/* WHAT'S COMING NEXT */}
+      <section className="lp-wrap lp-section">
+        <p className="lp-eyebrow">In progress</p>
+        <h2 className="lp-heading">What&apos;s coming next</h2>
+        <div className="lp-cards">
+          <div className="lp-card">
+            <span className="lp-card-tag">RAG</span>
+            <h3 className="lp-card-title">Chat with your documents</h3>
+            <p className="lp-card-desc">
+              Answers grounded in a company&apos;s own files, with citations.
+            </p>
+          </div>
+          <div className="lp-card">
+            <span className="lp-card-tag">Agents</span>
+            <h3 className="lp-card-title">A task-running agent</h3>
+            <p className="lp-card-desc">
+              Takes actions across steps, not just chat.
+            </p>
+          </div>
+          <div className="lp-card">
+            <span className="lp-card-tag">Extraction</span>
+            <h3 className="lp-card-title">Smart extractor</h3>
+            <p className="lp-card-desc">
+              Turns messy text into clean, structured data.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="lp-wrap">
+        <div className="lp-divider" />
+      </div>
+
       {/* HOBBIES */}
       <section className="lp-wrap lp-section">
         <h2 className="lp-heading">Off the clock</h2>
