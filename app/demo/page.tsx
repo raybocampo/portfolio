@@ -120,22 +120,70 @@ function LoginGate({ onUnlock }: { onUnlock: () => void }) {
 function Drafter({ onLogout }: { onLogout: () => void }) {
   const [situation, setSituation] = useState("");
   const [goal, setGoal] = useState(GOALS[0].value);
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [phase, setPhase] = useState<"input" | "questions">("input");
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingLabel, setLoadingLabel] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
-  async function handleDraft() {
+  // Step 1: ask the model for up to 3 clarifying questions.
+  // If none come back — or anything fails — fall straight through to drafting.
+  async function handleStart() {
     if (!situation.trim()) return;
     setLoading(true);
+    setLoadingLabel("Thinking of a few questions…");
     setError("");
     setDraft("");
+
+    try {
+      const res = await fetch("/api/clarify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ situation, goal }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const qs: string[] = Array.isArray(data.questions)
+          ? data.questions.slice(0, 3)
+          : [];
+        if (qs.length > 0) {
+          setQuestions(qs);
+          setAnswers(qs.map(() => ""));
+          setPhase("questions");
+          setLoading(false);
+          setLoadingLabel("");
+          return;
+        }
+      }
+      // No questions, or the clarify call failed → draft directly.
+      await doDraft([]);
+    } catch {
+      // Clarify unreachable → draft directly.
+      await doDraft([]);
+    }
+  }
+
+  // Step 2: draft the email, folding in any answers the user gave.
+  async function doDraft(currentAnswers: string[]) {
+    setLoading(true);
+    setLoadingLabel("Drafting your email…");
+    setError("");
+    setDraft("");
+
+    const payloadAnswers = questions.map((q, i) => ({
+      question: q,
+      answer: currentAnswers[i] ?? "",
+    }));
 
     try {
       const res = await fetch("/api/draft-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ situation, goal }),
+        body: JSON.stringify({ situation, goal, answers: payloadAnswers }),
       });
 
       const data = await res.json();
@@ -150,7 +198,22 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
       setError("Could not reach the server. Check your internet connection and try again.");
     } finally {
       setLoading(false);
+      setLoadingLabel("");
     }
+  }
+
+  // Changing the situation after questions appear restarts the flow.
+  function handleSituationChange(value: string) {
+    setSituation(value);
+    if (phase === "questions") {
+      setPhase("input");
+      setQuestions([]);
+      setAnswers([]);
+    }
+  }
+
+  function setAnswer(index: number, value: string) {
+    setAnswers((prev) => prev.map((a, i) => (i === index ? value : a)));
   }
 
   async function handleLogout() {
@@ -166,7 +229,7 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
 
   const hasDraft = Boolean(draft) && !loading;
   const outputText = loading
-    ? "Drafting your email…"
+    ? loadingLabel || "Working…"
     : draft || "Your clean draft shows up here. Feed me the mess first.";
 
   return (
@@ -205,7 +268,7 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
                   id="situation"
                   placeholder="e.g. The client is asking why the invoice is higher than quoted. We added extra hours they didn't approve. I need to explain it without sounding defensive…"
                   value={situation}
-                  onChange={(e) => setSituation(e.target.value)}
+                  onChange={(e) => handleSituationChange(e.target.value)}
                   rows={5}
                 />
               </div>
@@ -225,15 +288,36 @@ function Drafter({ onLogout }: { onLogout: () => void }) {
                 </select>
               </div>
 
+              {phase === "questions" && (
+                <div className="clarify">
+                  <p className="clarify-lead">
+                    A few quick questions to sharpen the draft — answer what helps,
+                    skip the rest.
+                  </p>
+                  {questions.map((q, i) => (
+                    <div className="field" key={i}>
+                      <label htmlFor={`clarify-${i}`}>{q}</label>
+                      <input
+                        id={`clarify-${i}`}
+                        type="text"
+                        value={answers[i] ?? ""}
+                        onChange={(e) => setAnswer(i, e.target.value)}
+                        placeholder="Optional"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <button
                 className="run"
-                onClick={handleDraft}
+                onClick={phase === "questions" ? () => doDraft(answers) : handleStart}
                 disabled={loading || !situation.trim()}
               >
                 {loading ? (
                   <>
                     <span className="spinner" aria-hidden="true" />
-                    Drafting…
+                    {loadingLabel || "Working…"}
                   </>
                 ) : (
                   "Draft the email"
