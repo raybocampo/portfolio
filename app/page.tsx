@@ -1,10 +1,14 @@
+import { Hibiscus } from "./Hibiscus";
+
 export default function Home() {
   return (
     <main className="landing">
       {/* HERO */}
       <section className="lp-wrap lp-hero">
         <div className="lp-hero-text">
-          <p className="lp-eyebrow">Portfolio · Live work inside</p>
+          <p className="lp-eyebrow">
+            Portfolio <Hibiscus className="lp-hibiscus-sep" /> Live work inside
+          </p>
           <h1 className="lp-name">RAY OCAMPO</h1>
           <p className="lp-intro">
             I spent four years explaining technology to the people who sign the
@@ -36,14 +40,15 @@ export default function Home() {
         <h2 className="lp-heading">The translator between the tech and the buyer</h2>
         <p className="lp-body">
           I spent four years in enterprise client success at INFUSE, coordinating
-          delivery across 40-plus B2B accounts. My job was turning technical
-          reality into language a client trusts, and turning a vague problem into a
-          plan a team can ship. I cut client churn by 22%, held 95% retention, and
-          generated over $250K in expansion revenue by spotting gaps and connecting
-          the right people to close them. Before that, a decade running operations
-          and public-sector programs, the process-heavy environments where
-          deployments actually live or die. Now I build the AI tools myself, and I
-          can explain every line of them to the person signing the check.
+          delivery across 40-plus B2B accounts. My job was translating technical
+          reality into language a client trusts, then turning a vague problem into
+          a plan a team could ship. I cut client churn by 22%, held 95% retention,
+          and generated over $250K in expansion revenue by spotting gaps and
+          connecting the right people to close them. That was the job. Before that,
+          a decade running operations and public-sector programs, the process-heavy
+          environments where deployments actually live or die. Now I build the AI
+          tools myself, and I can explain every line of them to the person signing
+          the check.
         </p>
         <a className="lp-btn-outline" href="/resume.pdf" download>
           Download resume (PDF)
@@ -69,7 +74,7 @@ export default function Home() {
             <span className="lp-card-tag">Agents</span>
             <h3 className="lp-card-title">A task-running agent</h3>
             <p className="lp-card-desc">
-              Takes actions across steps, not just chat.
+              Runs multi-step tasks and takes actions on its own.
             </p>
           </div>
           <div className="lp-card">
@@ -106,17 +111,7 @@ export default function Home() {
       {/* CURRENTLY */}
       <section className="lp-wrap lp-section">
         <p className="lp-currently">
-          <svg className="lp-hibiscus" viewBox="0 0 24 24" aria-hidden="true">
-            <g fill="#BE3A34">
-              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" />
-              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(72 12 12)" />
-              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(144 12 12)" />
-              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(216 12 12)" />
-              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(288 12 12)" />
-            </g>
-            <circle cx="12" cy="12" r="2.4" fill="#F5EFE3" />
-            <circle cx="12" cy="12" r="1.1" fill="#E0A312" />
-          </svg>
+          <Hibiscus className="lp-hibiscus" />
           <span className="lp-currently-label">Currently:</span> building{" "}
           <a href="https://www.scoredthreads.com" target="_blank" rel="noopener noreferrer">
             ScoredThreads
@@ -135,7 +130,7 @@ export default function Home() {
         <p className="lp-eyebrow">Contact</p>
         <div className="lp-contact">
           <a href="mailto:raybocampo@gmail.com">raybocampo@gmail.com</a>
-          <span className="lp-sep">·</span>
+          <Hibiscus className="lp-hibiscus-sep" />
           <a
             href="https://www.linkedin.com/in/raybocampo/"
             target="_blank"

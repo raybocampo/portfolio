@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Projects — Ray Ocampo",
+  title: "Projects · Ray Ocampo",
 };
 
 const COMING_SOON = [
@@ -11,7 +11,7 @@ const COMING_SOON = [
   {
     tag: "Agents",
     title: "A task-running agent",
-    desc: "Takes actions across steps, not just chat.",
+    desc: "Runs multi-step tasks and takes actions on its own.",
   },
   {
     tag: "Extraction",
@@ -31,8 +31,7 @@ export default function Projects() {
         <p className="lp-eyebrow">Projects</p>
         <h1 className="lp-page-title">Things I&apos;ve built</h1>
         <p className="lp-intro">
-          Real, working tools I designed, built, and shipped end to end — not
-          screenshots.
+          Real, working tools I designed, built, and shipped end to end.
         </p>
       </section>
 
@@ -44,7 +43,7 @@ export default function Projects() {
             <h2 className="proj-title">Client Email Drafter</h2>
             <p className="proj-desc">
               Turns a messy internal update into a polished, ready-to-send client
-              email in seconds, running on a real model — with the
+              email in seconds, running on a real model, with the
               client-communication rules I learned over four years in enterprise
               client success baked in.
             </p>

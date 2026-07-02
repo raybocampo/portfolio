@@ -24,7 +24,7 @@ A real model then drafts the email, following a set of communication rules, and 
 
 ## The judgment behind it
 
-The interesting part is not that a model can write an email. Anything can do that badly. The value is in the rules it follows, which come from what actually lands with clients:
+Any model can write an email badly. The value here is the rules it follows, which come from what actually lands with clients:
 
 - Lead, do not apologize. Open with the point, never "just checking in" or "sorry for the delay."
 - Be specific and confident. Replace "I think" with "my recommendation is." Replace "I'll try" with "I'll deliver by Thursday."
