@@ -14,6 +14,11 @@ export default function Home() {
           <a className="lp-btn-primary" href="/demo">
             Try the live demo
           </a>
+          <p className="lp-hero-links">
+            <a className="lp-textlink" href="/projects">View all projects →</a>
+            <span className="lp-sep">·</span>
+            <a className="lp-textlink" href="/projects/email-drafter">Read the case study →</a>
+          </p>
         </div>
 
         <div className="lp-headshot-frame">

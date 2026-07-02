@@ -757,6 +757,228 @@ html, body {
   font-size: 15px;
 }
 
+/* ---------- Projects + case study pages ---------- */
+.lp-topbar {
+  padding-top: 32px;
+  padding-bottom: 4px;
+}
+
+.lp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lp-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.lp-back:hover { color: var(--lp-ink); }
+
+.lp-page-head {
+  padding-top: 40px;
+  padding-bottom: 8px;
+}
+
+.lp-page-title {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(44px, 8vw, 78px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--lp-ink);
+  margin-top: 4px;
+}
+
+/* Red text links */
+.lp-textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--lp-red);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lp-textlink:hover { text-decoration: underline; }
+
+.lp-hero-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Project cards */
+.proj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.proj-card {
+  background: var(--lp-cream-card);
+  border: 1px solid var(--lp-card-border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.proj-card-featured { border-color: rgba(30, 42, 34, 0.28); }
+
+.proj-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.proj-live { color: var(--lp-green); }
+
+.proj-live::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2E7D4F;
+}
+
+.proj-soon { color: var(--lp-muted-2); }
+
+.proj-title {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.04;
+  color: var(--lp-ink);
+  margin-bottom: 10px;
+}
+
+.proj-title-sm { font-size: clamp(22px, 3vw, 28px); }
+
+.proj-desc {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--lp-muted);
+  max-width: 62ch;
+}
+
+.proj-card .lp-card-tag { margin-top: 2px; }
+
+.proj-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+/* Case study prose */
+.cs {
+  max-width: 720px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.cs-prose { color: var(--lp-ink); }
+
+.cs-prose h1 {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(34px, 6vw, 58px);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: var(--lp-ink);
+  margin: 8px 0 20px;
+}
+
+.cs-prose h2 {
+  font-family: var(--font-anton), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(24px, 3.6vw, 32px);
+  line-height: 1.1;
+  color: var(--lp-ink);
+  margin: 44px 0 14px;
+}
+
+.cs-prose h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--lp-ink);
+  margin: 28px 0 8px;
+}
+
+.cs-prose p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--lp-muted);
+  margin: 0 0 18px;
+}
+
+/* Lead paragraph (the TL;DR right after the title) */
+.cs-prose > p:first-of-type {
+  font-size: 19px;
+  color: var(--lp-ink);
+}
+
+.cs-prose strong { color: var(--lp-ink); font-weight: 700; }
+
+.cs-prose a {
+  color: var(--lp-red);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(190, 58, 52, 0.35);
+  padding-bottom: 1px;
+}
+
+.cs-prose a:hover { border-color: var(--lp-red); }
+
+.cs-prose ul,
+.cs-prose ol {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+
+.cs-prose li {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--lp-muted);
+  margin-bottom: 9px;
+}
+
+.cs-prose li::marker { color: var(--lp-koa); }
+
+.cs-prose hr {
+  border: none;
+  border-top: 1px solid var(--lp-divider);
+  margin: 32px 0;
+}
+
+.cs-prose code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.9em;
+  background: var(--lp-cream-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--lp-ink);
+}
+
+.cs-cta {
+  margin-top: 12px;
+  padding-top: 28px;
+  border-top: 1px solid var(--lp-divider);
+}
+
 /* Landing responsive: stack hero, headshot on top */
 @media (max-width: 720px) {
   .lp-hero {
