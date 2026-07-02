@@ -106,6 +106,17 @@ export default function Home() {
       {/* CURRENTLY */}
       <section className="lp-wrap lp-section">
         <p className="lp-currently">
+          <svg className="lp-hibiscus" viewBox="0 0 24 24" aria-hidden="true">
+            <g fill="#BE3A34">
+              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" />
+              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(72 12 12)" />
+              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(144 12 12)" />
+              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(216 12 12)" />
+              <ellipse cx="12" cy="6.5" rx="3.3" ry="5" transform="rotate(288 12 12)" />
+            </g>
+            <circle cx="12" cy="12" r="2.4" fill="#F5EFE3" />
+            <circle cx="12" cy="12" r="1.1" fill="#E0A312" />
+          </svg>
           <span className="lp-currently-label">Currently:</span> building{" "}
           <a href="https://www.scoredthreads.com" target="_blank" rel="noopener noreferrer">
             ScoredThreads
@@ -137,6 +148,8 @@ export default function Home() {
 
       {/* FOOTER — solid koa band for now; a wood image can drop in later */}
       <footer className="lp-footer">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="lp-footer-palms" src="/palms.svg" alt="" aria-hidden="true" />
         <div className="lp-wrap lp-footer-inner">
           Built by Ray Ocampo. No screenshots were harmed, or used, in making this page.
         </div>
