@@ -6,6 +6,19 @@ import { useEffect, useRef, useState } from "react";
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
 const ACCEPTED_EXTENSIONS = [".pdf", ".docx", ".txt", ".md"];
 
+// Read a response body safely. If the server returns a non-JSON error page
+// (e.g. a Vercel 500/504/413 HTML page), surface the real status instead of
+// letting JSON.parse throw and hide it behind a generic "couldn't reach" error.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function readJson(res: Response): Promise<any> {
+  const text = await res.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    return { error: `The server hit an error (${res.status}). Please try again.` };
+  }
+}
+
 type Chunk = { index: number; text: string; heading: string };
 type Source = { n: number; heading: string; excerpt: string };
 type Turn = { question: string; answer: string; sources: Source[] };
@@ -61,7 +74,7 @@ function LoginGate({ onUnlock }: { onUnlock: () => void }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
-      const data = await res.json();
+      const data = await readJson(res);
       if (!res.ok) {
         setError(data.error ?? "Could not log in. Please try again.");
         return;
@@ -165,7 +178,7 @@ function DocChat({ onLogout }: { onLogout: () => void }) {
       const form = new FormData();
       form.append("file", file);
       const res = await fetch("/api/document-chat/upload", { method: "POST", body: form });
-      const data = await res.json();
+      const data = await readJson(res);
       if (!res.ok) {
         setUploadError(data.error ?? "We couldn't process that file. Please try another.");
         return;
@@ -201,7 +214,7 @@ function DocChat({ onLogout }: { onLogout: () => void }) {
           embeddings: doc.embeddings,
         }),
       });
-      const data = await res.json();
+      const data = await readJson(res);
       if (!res.ok) {
         setAskError(data.error ?? "Something went wrong. Please try again.");
         return;

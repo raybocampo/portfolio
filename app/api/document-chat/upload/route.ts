@@ -1,4 +1,5 @@
 import { MarkItDown } from "markitdown-ts";
+import { extractText, getDocumentProxy } from "unpdf";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { AUTH_COOKIE, isValidToken } from "@/app/lib/auth";
@@ -76,17 +77,29 @@ export async function POST(req: NextRequest) {
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  // Convert the file to markdown. markitdown handles PDF and Word; for plain
-  // text and markdown we fall back to reading the bytes directly if needed.
+  // Turn the file into text.
+  //  - PDF: unpdf, a serverless-native PDF reader (no canvas / DOMMatrix).
+  //  - .txt / .md: read the bytes directly.
+  //  - .docx: markitdown (Word -> markdown via mammoth, pure JS).
   let markdown = "";
   try {
-    const result = await new MarkItDown().convertBuffer(buffer, { file_extension: check.ext });
-    markdown = (result?.markdown ?? "").trim();
-  } catch {
-    markdown = "";
-  }
-  if (!markdown && (check.ext === ".txt" || check.ext === ".md")) {
-    markdown = buffer.toString("utf8").trim();
+    if (check.ext === ".pdf") {
+      const pdf = await getDocumentProxy(new Uint8Array(buffer));
+      const { text } = await extractText(pdf, { mergePages: true });
+      markdown = (Array.isArray(text) ? text.join("\n\n") : text).trim();
+    } else if (check.ext === ".txt" || check.ext === ".md") {
+      markdown = buffer.toString("utf8").trim();
+    } else {
+      const result = await new MarkItDown().convertBuffer(buffer, { file_extension: check.ext });
+      markdown = (result?.markdown ?? "").trim();
+    }
+  } catch (err) {
+    // Return a clean JSON error (not a 500 HTML page) so the page can show it.
+    const detail = err instanceof Error ? err.message : "";
+    return NextResponse.json(
+      { error: `We couldn't read text from that file. ${detail}`.trim() },
+      { status: 422 }
+    );
   }
   if (!markdown) {
     return NextResponse.json(

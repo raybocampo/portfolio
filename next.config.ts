@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // These pull in native/Node-only bits (PDF and Word parsing); let them run
-  // as real Node modules on the server instead of being bundled.
-  serverExternalPackages: ["markitdown-ts", "pdf-parse", "mammoth", "jsdom"],
+  // markitdown (used for .docx) pulls in Node-only bits; let it run as a real
+  // Node module instead of being bundled. PDFs are handled by unpdf, which is
+  // built to bundle for serverless, so it is intentionally not listed here.
+  serverExternalPackages: ["markitdown-ts", "mammoth", "jsdom"],
 };
 
 export default nextConfig;
