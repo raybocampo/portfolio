@@ -1,4 +1,3 @@
-import { MarkItDown } from "markitdown-ts";
 import { extractText, getDocumentProxy } from "unpdf";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
@@ -90,6 +89,9 @@ export async function POST(req: NextRequest) {
     } else if (check.ext === ".txt" || check.ext === ".md") {
       markdown = buffer.toString("utf8").trim();
     } else {
+      // .docx only. Load markitdown lazily so a PDF request never pulls in
+      // markitdown's real pdfjs-dist dependency (which throws DOMMatrix).
+      const { MarkItDown } = await import("markitdown-ts");
       const result = await new MarkItDown().convertBuffer(buffer, { file_extension: check.ext });
       markdown = (result?.markdown ?? "").trim();
     }
