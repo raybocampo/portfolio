@@ -16,13 +16,8 @@ export default function Home() {
             checks. Now I build the technology too.
           </p>
           <p className="lp-role">AI Solutions Consultant · Portland, OR</p>
-          <a className="lp-btn-primary" href="/demo">
-            Try the live demo
-          </a>
           <p className="lp-hero-links">
             <a className="lp-textlink" href="/projects">View all projects →</a>
-            <span className="lp-sep">·</span>
-            <a className="lp-textlink" href="/projects/email-drafter">Read the case study →</a>
           </p>
         </div>
 
@@ -60,29 +55,65 @@ export default function Home() {
         <div className="lp-divider" />
       </div>
 
-      {/* WHAT'S COMING NEXT */}
+      {/* SECTION 1: LIVE AND RUNNING */}
       <section className="lp-wrap lp-section">
-        <h2 className="lp-heading">What&apos;s coming next</h2>
-        <div className="lp-cards">
-          {/* Live, built — Chat with your documents */}
-          <div className="lp-card">
-            <p className="proj-status proj-live">Live · Built</p>
+        <h2 className="lp-heading">Live and running</h2>
+        <div className="lp-live-cards">
+          {/* Card A: Client Email Drafter */}
+          <article className="lp-live-card">
+            <div className="lp-live-head">
+              <span className="lp-card-tag">Prompting</span>
+              <span className="lp-live-label">Live</span>
+            </div>
+            <h3 className="lp-card-title">Client Email Drafter</h3>
+            <p className="lp-card-desc">
+              Turns a messy client situation into a polished, ready-to-send email.
+              Now asks a few clarifying questions first.
+            </p>
+            <div className="lp-live-actions">
+              <a className="lp-btn-green" href="/demo">Try the live demo</a>
+              <a className="lp-textlink" href="/projects/email-drafter">
+                Read the case study →
+              </a>
+            </div>
+          </article>
+
+          {/* Card B: Chat with your documents */}
+          <article className="lp-live-card">
+            <div className="lp-live-head">
+              <span className="lp-card-tag">RAG</span>
+              <span className="lp-live-label">Live</span>
+            </div>
             <h3 className="lp-card-title">Chat with your documents</h3>
             <p className="lp-card-desc">
-              Answers grounded in a company&apos;s own files, with citations.
+              Answers grounded in your own uploaded files, with citations.
             </p>
-            <a className="lp-textlink lp-card-link" href="/projects/document-chat">
-              Try the live demo →
-            </a>
-          </div>
+            <div className="lp-live-actions">
+              <a className="lp-btn-green" href="/projects/document-chat">
+                Try the live demo
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-          {/* Coming soon (shared list) */}
+      <div className="lp-wrap">
+        <div className="lp-divider" />
+      </div>
+
+      {/* SECTION 2: WHAT'S COMING NEXT */}
+      <section className="lp-wrap lp-section">
+        <h2 className="lp-heading">What&apos;s coming next</h2>
+        <div className="lp-next-cards">
           {COMING_SOON.map((item) => (
-            <div className="lp-card" key={item.tag}>
-              <span className="lp-card-tag">{item.tag}</span>
+            <article className="lp-next-card" key={item.tag}>
+              <div className="lp-next-head">
+                <span className="lp-card-tag">{item.tag}</span>
+                <span className="lp-next-label">Coming next</span>
+              </div>
               <h3 className="lp-card-title">{item.title}</h3>
               <p className="lp-card-desc">{item.desc}</p>
-            </div>
+            </article>
           ))}
         </div>
       </section>
