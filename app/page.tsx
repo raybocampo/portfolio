@@ -1,4 +1,5 @@
 import { Hibiscus } from "./Hibiscus";
+import { COMING_SOON } from "./lib/projects";
 
 export default function Home() {
   return (
@@ -63,27 +64,26 @@ export default function Home() {
       <section className="lp-wrap lp-section">
         <h2 className="lp-heading">What&apos;s coming next</h2>
         <div className="lp-cards">
+          {/* Live, built — Chat with your documents */}
           <div className="lp-card">
-            <span className="lp-card-tag">RAG</span>
+            <p className="proj-status proj-live">Live · Built</p>
             <h3 className="lp-card-title">Chat with your documents</h3>
             <p className="lp-card-desc">
               Answers grounded in a company&apos;s own files, with citations.
             </p>
+            <a className="lp-textlink lp-card-link" href="/projects/document-chat">
+              Try the live demo →
+            </a>
           </div>
-          <div className="lp-card">
-            <span className="lp-card-tag">Agents</span>
-            <h3 className="lp-card-title">A task-running agent</h3>
-            <p className="lp-card-desc">
-              Runs multi-step tasks and takes actions on its own.
-            </p>
-          </div>
-          <div className="lp-card">
-            <span className="lp-card-tag">Extraction</span>
-            <h3 className="lp-card-title">Smart extractor</h3>
-            <p className="lp-card-desc">
-              Turns messy text into clean, structured data.
-            </p>
-          </div>
+
+          {/* Coming soon (shared list) */}
+          {COMING_SOON.map((item) => (
+            <div className="lp-card" key={item.tag}>
+              <span className="lp-card-tag">{item.tag}</span>
+              <h3 className="lp-card-title">{item.title}</h3>
+              <p className="lp-card-desc">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 

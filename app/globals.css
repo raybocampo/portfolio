@@ -745,6 +745,11 @@ html, body {
   color: var(--lp-muted);
 }
 
+/* Demo link inside a live "coming next" card */
+.lp-card-link {
+  margin-top: 14px;
+}
+
 @media (max-width: 720px) {
   .lp-cards { grid-template-columns: 1fr; }
 }

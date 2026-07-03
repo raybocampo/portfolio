@@ -1,19 +1,8 @@
+import { COMING_SOON } from "@/app/lib/projects";
+
 export const metadata = {
   title: "Projects · Ray Ocampo",
 };
-
-const COMING_SOON = [
-  {
-    tag: "Agents",
-    title: "A task-running agent",
-    desc: "Runs multi-step tasks and takes actions on its own.",
-  },
-  {
-    tag: "Extraction",
-    title: "Smart extractor",
-    desc: "Turns messy text into clean, structured data.",
-  },
-];
 
 export default function Projects() {
   return (
