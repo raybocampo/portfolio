@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ray [Last Name] — AI Solutions Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F4EEE3;
+    --paper-2:#ECE3D4;
+    --ink:#221C15;
+    --ink-soft:#5C5244;
+    --line:#DBD0BD;
+    --accent:#B96A18;
+    --accent-deep:#2E4A3F;
+    --console:#241F18;
+    --console-2:#2E2820;
+    --console-line:#403831;
+    --console-text:#D8CEBE;
+    --console-muted:#9A9081;
+    --live:#5FB98A;
+    --display:"Bricolage Grotesque", system-ui, sans-serif;
+    --body:"IBM Plex Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 24px;}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px;}
+  a:hover{color:var(--accent);border-color:var(--accent);}
+  h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;color:var(--ink);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 16px;
+  }
+
+  /* HERO */
+  header{padding:84px 0 56px;}
+  .topline{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:12px;color:var(--ink-soft);
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:40px;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--live);
+    box-shadow:0 0 0 0 rgba(95,185,138,0.5);animation:pulse 2.4s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(95,185,138,0.5);}
+    70%{box-shadow:0 0 0 9px rgba(95,185,138,0);}
+    100%{box-shadow:0 0 0 0 rgba(95,185,138,0);}
+  }
+  h1{font-size:clamp(36px,7vw,64px);font-weight:800;letter-spacing:-0.02em;max-width:14ch;}
+  h1 .accent{color:var(--accent);}
+  .lede{font-size:clamp(17px,2.3vw,21px);color:var(--ink-soft);max-width:620px;margin:26px 0 0;}
+  .who{font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin-top:22px;}
+
+  /* SECTIONS */
+  section{padding:30px 0 56px;}
+  .divider{height:1px;background:var(--line);margin:0 24px;}
+  h2{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-0.01em;}
+  .blurb{color:var(--ink-soft);max-width:640px;margin:16px 0 28px;}
+
+  /* DEMO CONSOLE (the one dark instrument) */
+  .console{
+    background:var(--console);border:1px solid var(--console-line);border-radius:16px;
+    overflow:hidden;box-shadow:0 24px 50px -28px rgba(34,28,21,0.45);
+  }
+  .console-bar{
+    display:flex;align-items:center;gap:10px;padding:14px 20px;
+    border-bottom:1px solid var(--console-line);background:var(--console-2);
+    font-family:var(--mono);font-size:12px;color:var(--console-muted);
+    letter-spacing:0.06em;text-transform:uppercase;
+  }
+  .live-pill{display:inline-flex;align-items:center;gap:7px;margin-left:auto;color:var(--live);}
+  .console-body{display:grid;grid-template-columns:1fr 1fr;}
+  @media (max-width:720px){.console-body{grid-template-columns:1fr;}}
+  .pane{padding:22px;}
+  .pane.input{border-right:1px solid var(--console-line);}
+  @media (max-width:720px){.pane.input{border-right:none;border-bottom:1px solid var(--console-line);}}
+  label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--console-muted);margin:0 0 9px;}
+  textarea,select{
+    width:100%;background:#1B1711;color:var(--console-text);border:1px solid var(--console-line);
+    border-radius:10px;padding:13px;font-family:var(--body);font-size:15px;line-height:1.5;resize:vertical;
+  }
+  textarea{min-height:150px;}
+  textarea:focus,select:focus,button:focus-visible{
+    outline:2px solid var(--accent);outline-offset:2px;border-color:var(--accent);
+  }
+  .field{margin-bottom:16px;}
+  button.run{
+    width:100%;margin-top:4px;background:var(--accent);color:#fff;border:none;
+    border-radius:10px;padding:14px 18px;font-family:var(--display);font-weight:700;
+    font-size:16px;cursor:pointer;transition:transform .08s ease, filter .15s ease;
+  }
+  button.run:hover{filter:brightness(1.07);}
+  button.run:active{transform:translateY(1px);}
+  button.run:disabled{opacity:0.6;cursor:wait;}
+  .output{
+    background:#1B1711;border:1px solid var(--console-line);border-radius:10px;
+    padding:16px;min-height:150px;white-space:pre-wrap;font-size:15px;line-height:1.62;color:var(--console-text);
+  }
+  .output.placeholder{color:var(--console-muted);display:flex;align-items:center;justify-content:center;text-align:center;}
+  .hint{font-family:var(--mono);font-size:12px;color:var(--console-muted);margin-top:12px;}
+  .caselink{margin-top:22px;font-family:var(--mono);font-size:13px;}
+
+  /* COMING NEXT */
+  .nextgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+  @media (max-width:720px){.nextgrid{grid-template-columns:1fr;}}
+  .nextcard{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:18px;}
+  .nextcard .tag{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);}
+  .nextcard h3{font-size:18px;font-weight:600;margin:10px 0 6px;}
+  .nextcard p{margin:0;font-size:14px;color:var(--ink-soft);}
+
+  /* ABOUT */
+  .about p{max-width:660px;color:var(--ink);}
+  footer{padding:40px 0 72px;color:var(--ink-soft);font-size:15px;}
+  footer .contact{font-family:var(--mono);font-size:14px;margin-top:14px;}
+
+  @media (prefers-reduced-motion:reduce){.dot{animation:none;} html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topline"><span class="dot"></span> Portfolio · Live working demo inside</div>
+    <h1>I make AI work where it usually <span class="accent">breaks</span>: inside a real business.</h1>
+    <p class="lede">Four years running enterprise accounts, plus years in public-sector operations. Now I build and deploy AI that survives contact with reality.</p>
+    <p class="who">Ray [Last Name] · AI Solutions Consultant · Portland, OR</p>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<section id="work">
+  <div class="wrap">
+    <p class="eyebrow">Live work, not screenshots</p>
+    <h2>Built, and running right now</h2>
+    <p class="blurb">Account managers lose hours turning a messy internal update into a clean client email. This tool does it in seconds, on the communication rules that actually land with clients. Type a situation, pick the goal, and a real model drafts it.</p>
+
+    <div class="console">
+      <div class="console-bar">
+        Client Communication Drafter
+        <span class="live-pill"><span class="dot"></span> Live model</span>
+      </div>
+      <div class="console-body">
+        <div class="pane input">
+          <div class="field">
+            <label for="situation">The messy situation</label>
+            <textarea id="situation" placeholder="e.g. Campaign for Menlo Security is two weeks behind because the integration team flagged a targeting issue. Client is anxious. I need to tell them, keep them calm, and ask for one more week without sounding like I'm making excuses."></textarea>
+          </div>
+          <div class="field">
+            <label for="goal">Goal of the email</label>
+            <select id="goal">
+              <option>Deliver an update with a delay</option>
+              <option>Ask the client for something</option>
+              <option>Follow up after silence</option>
+              <option>Set a boundary or push back</option>
+              <option>Decline a request gracefully</option>
+              <option>Deliver good news and a next step</option>
+            </select>
+          </div>
+          <button class="run" id="run">Draft the email</button>
+          <p class="hint">Runs on a live model. Takes a few seconds.</p>
+        </div>
+        <div class="pane">
+          <label>Drafted email</label>
+          <div class="output placeholder" id="output">Your clean, ready-to-send draft appears here.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="caselink"><a href="#">Read the full case study: problem, approach, and impact &rarr;</a></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="next">
+  <div class="wrap">
+    <p class="eyebrow">In progress</p>
+    <h2>What's coming next</h2>
+    <p class="blurb">Each one proves a broad, in-demand skill, and each ships with a written case study and an eval.</p>
+    <div class="nextgrid">
+      <div class="nextcard">
+        <div class="tag">RAG</div>
+        <h3>Chat with your documents</h3>
+        <p>Answers grounded in a company's own files, with citations.</p>
+      </div>
+      <div class="nextcard">
+        <div class="tag">Agents</div>
+        <h3>A task-running agent</h3>
+        <p>Takes actions across steps, not just chat.</p>
+      </div>
+      <div class="nextcard">
+        <div class="tag">Extraction</div>
+        <h3>Smart extractor</h3>
+        <p>Turns messy text into clean, structured data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <p class="eyebrow">Who I am</p>
+    <h2>The translator between the tech and the buyer</h2>
+    <p>I spent four years in enterprise client success at INFUSE, running 40-plus B2B accounts, where my job was turning technical reality into language a client trusts and turning a vague problem into a plan a team can ship. Before that, years in operations and public-sector administration, the complex and process-heavy environments where AI deployments actually live or die. I build the tools, I understand how they work, and I can explain them to the person signing the check.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Built by Ray [Last Name]. This page runs a live model, not a screenshot.
+    <div class="contact">[your@email.com] · [linkedin.com/in/you] · Portland, OR</div>
+  </div>
+</footer>
+
+<script>
+  const runBtn = document.getElementById('run');
+  const output = document.getElementById('output');
+
+  function setOutput(text, isPlaceholder){
+    output.textContent = text;
+    output.classList.toggle('placeholder', !!isPlaceholder);
+  }
+
+  runBtn.addEventListener('click', async () => {
+    const situation = document.getElementById('situation').value.trim();
+    const goal = document.getElementById('goal').value;
+
+    if(!situation){
+      setOutput('Add a situation first, then I will draft the email.', true);
+      return;
+    }
+
+    runBtn.disabled = true;
+    const original = runBtn.textContent;
+    runBtn.textContent = 'Drafting...';
+    setOutput('Drafting your email...', true);
+
+    const prompt =
+      "You are an expert client-communications writer for B2B account managers. " +
+      "Rewrite the messy situation below into a polished, ready-to-send client email.\n\n" +
+      "Rules:\n" +
+      "- Lead, do not apologize. Open with the point, never 'just checking in' or 'sorry for the delay'.\n" +
+      "- Be confident and specific. Replace 'I think' with 'My recommendation is'. Replace 'I'll try' with 'I'll deliver by [day]'.\n" +
+      "- When you ask for something, reduce pressure with freedom-of-choice language: 'It's completely up to you', 'No pressure either way'.\n" +
+      "- Cut weak sales phrases like 'touch base', 'circle back', 'no-brainer'. State the next step instead.\n" +
+      "- Keep it short, warm, and human. No corporate filler. Do not use em dashes.\n" +
+      "- End by stating the clear next step or exactly what you need.\n\n" +
+      "Goal of the email: " + goal + "\n\n" +
+      "Messy situation:\n" + situation + "\n\n" +
+      "Return only the email. Put a Subject line first.";
+
+    try{
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+
+      if(!response.ok){ throw new Error("status " + response.status); }
+
+      const data = await response.json();
+      const text = (data.content || [])
+        .filter(b => b.type === "text")
+        .map(b => b.text)
+        .join("\n")
+        .trim();
+
+      if(text){ setOutput(text, false); }
+      else { setOutput("The model returned nothing usable. Try rephrasing the situation and run it again.", true); }
+    }catch(err){
+      setOutput("The drafter could not reach the model. Check your connection and run it again.", true);
+    }finally{
+      runBtn.disabled = false;
+      runBtn.textContent = original;
+    }
+  });
+</script>
+
+</body>
+</html>

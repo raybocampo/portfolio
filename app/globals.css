@@ -1106,6 +1106,184 @@ html, body {
   color: var(--ink-soft);
 }
 
+/* ---------- Document Chat demo ---------- */
+/* Single-column console for this demo (overrides the two-pane grid). */
+.dc-body { grid-template-columns: 1fr; }
+
+/* Hide the real file input; the styled label is the click target. */
+.dc-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* The upload drop zone.
+   Scoped under .dc-body so it beats the `.console label` rule, and resets the
+   uppercase/spacing that rule would otherwise force onto this label. */
+.dc-body .dc-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 168px;
+  padding: 28px;
+  margin-bottom: 0;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
+  background: var(--field);
+  border: 1.5px dashed var(--console-line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dc-drop:hover { border-color: var(--accent); }
+.dc-drop.is-busy { cursor: wait; border-style: solid; }
+
+.dc-drop-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--console-text);
+}
+
+.dc-drop-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--console-muted);
+}
+
+/* The loaded-document chip */
+.dc-docchip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  background: var(--field);
+  border: 1px solid var(--console-line);
+  border-radius: 10px;
+}
+
+.dc-docchip-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--console-text);
+}
+
+.dc-reset {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 0;
+  transition: filter 0.15s;
+}
+
+.dc-reset:hover { filter: brightness(1.25); }
+
+/* "Big document" note */
+.dc-note {
+  padding: 11px 13px;
+  margin-bottom: 16px;
+  background: rgba(185, 106, 24, 0.12);
+  border: 1px solid rgba(185, 106, 24, 0.3);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #E7B98C;
+}
+
+/* Q&A transcript */
+.dc-transcript {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--console-line);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dc-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dc-q {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--console-text);
+}
+
+.dc-a {
+  background: var(--field);
+  border: 1px solid var(--console-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--console-text);
+}
+
+.dc-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dc-sources-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--console-muted);
+  margin-top: 2px;
+}
+
+.dc-source {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+
+.dc-source-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.dc-source-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--console-muted);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .dot, .spinner { animation: none; }
 }

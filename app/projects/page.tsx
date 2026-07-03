@@ -4,11 +4,6 @@ export const metadata = {
 
 const COMING_SOON = [
   {
-    tag: "RAG",
-    title: "Chat with your documents",
-    desc: "Answers grounded in a company's own files, with citations.",
-  },
-  {
     tag: "Agents",
     title: "A task-running agent",
     desc: "Runs multi-step tasks and takes actions on its own.",
@@ -53,6 +48,22 @@ export default function Projects() {
               </a>
               <a className="lp-textlink" href="/projects/email-drafter">
                 Read the full case study →
+              </a>
+            </div>
+          </article>
+
+          {/* Featured, live project */}
+          <article className="proj-card proj-card-featured">
+            <p className="proj-status proj-live">Live · Built</p>
+            <h2 className="proj-title">Chat with your documents</h2>
+            <p className="proj-desc">
+              Upload a PDF, Word, or text file and ask questions about it. Answers
+              are grounded in the file itself, with a pointer back to the section
+              each one came from.
+            </p>
+            <div className="proj-actions">
+              <a className="lp-btn-primary" href="/projects/document-chat">
+                Try the live demo
               </a>
             </div>
           </article>
