@@ -92,6 +92,9 @@ export default function Home() {
               <a className="lp-btn-green" href="/projects/document-chat">
                 Try the live demo
               </a>
+              <a className="lp-textlink" href="/projects/document-chat-case-study">
+                Read the case study →
+              </a>
             </div>
           </article>
         </div>

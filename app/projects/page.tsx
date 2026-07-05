@@ -54,6 +54,9 @@ export default function Projects() {
               <a className="lp-btn-primary" href="/projects/document-chat">
                 Try the live demo
               </a>
+              <a className="lp-textlink" href="/projects/document-chat-case-study">
+                Read the full case study →
+              </a>
             </div>
           </article>
 
