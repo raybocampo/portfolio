@@ -1,6 +1,6 @@
 # Case study: Chat with your documents (RAG)
 
-**TL;DR.** Upload a document, ask questions, get answers pulled straight from the file with a pointer back to where they came from. If the answer is not in the document, the tool says so instead of inventing one. It runs live on this site. The most distinctive choice: nothing is stored. Your document lives in your browser for one session and is gone when you close the tab. No database, no disk, no retention.
+**TL;DR.** Upload a document, ask questions, get answers pulled straight from the file with a pointer back to where they came from. If the answer is not in the document, the tool says so instead of inventing one. The most distinctive choice: nothing is stored. Your document lives in your browser for one session and is gone when you close the tab. No database, no disk, no retention.
 
 Try it live on this site. Password is on the demo page.
 
@@ -8,11 +8,11 @@ Try it live on this site. Password is on the demo page.
 
 ## The problem
 
-The number one reason enterprises do not trust AI is that it makes things up. Ask a plain model about your contract and it will answer from memory, confidently inventing a clause that was never there. For a business, a plausible wrong answer is worse than no answer, because someone acts on it.
+Ask an enterprise buyer why they hesitate on AI and you hear the same answer: it makes things up. Ask a plain model about your contract and it will answer from memory, confidently inventing a clause that was never there. For a business, a plausible wrong answer is worse than no answer, because someone acts on it.
 
 I saw the trust version of this problem for four years in client success. Clients do not want a confident guess. They want an answer they can verify against the source. RAG, retrieval-augmented generation, is the pattern that delivers exactly that: the model answers only from the actual document, and it shows its work.
 
-Industry data backs the stakes. An MIT NANDA study found that 95 percent of enterprise AI projects fail, and a large share of that is trust and reliability, tools that sound right but cannot be checked. Grounding an answer in a named source, with a pointer back to it, is how you cross that gap.
+The stakes are documented. MIT Project NANDA's 2025 report, The GenAI Divide, found that 95 percent of enterprise generative AI pilots deliver no measurable business return. A tool nobody can verify is a tool nobody adopts. Grounding an answer in a named source, with the exact passage it came from, is how you cross that gap.
 
 ## What it does
 
@@ -37,9 +37,9 @@ Anyone can follow a RAG tutorial. The judgment shows in the choices, so here are
 
 **Paragraph-aware chunking, not fixed-size.** Slicing every 1,600 characters blindly would cut sentences and ideas in half, and half an idea retrieves badly. Packing whole paragraphs keeps ideas intact. The 200-character overlap means a fact that lands on a chunk boundary still shows up complete in at least one chunk. Storing the nearest heading gives each chunk a breadcrumb of where it sits in the document.
 
-**Grounding enforced by the prompt, not just retrieval.** The tool always sends the 6 closest chunks, with no score threshold, even when the best match is weak. The guardrail against a confident off-topic answer is not a cutoff, it is the instruction: answer only from these sources, and if the answer is not here, say so. That is an honest description of how it works, a prompt-level safeguard rather than a hard filter, and it is exactly the kind of tradeoff worth naming in a room full of engineers.
+**The guardrail is the prompt, on purpose.** The tool always sends the 6 closest chunks, with no score threshold, even when the best match is weak. The guardrail against a confident off-topic answer is not a cutoff, it is the instruction: answer only from these sources, and if the answer is not here, say so. That is an honest description of how it works, a prompt-level safeguard rather than a hard filter, and it is exactly the kind of tradeoff worth naming in a room full of engineers.
 
-**Citations resolve to the exact passage, not a page number.** Claude cites its sources inline as it writes, `[1]`, `[2]`. After the answer is finished, the code scans it for those markers, keeps only the chunks that were actually cited, and returns each as the real text excerpt the model used. So clicking a citation shows you the precise passage the answer came from, which is a stronger form of "show your work" than a page reference you still have to go hunting through. It also means a source only appears if it genuinely contributed to the answer.
+**Citations resolve to the exact passage.** Claude cites its sources inline as it writes, `[1]`, `[2]`. After the answer is finished, the code scans it for those markers, keeps only the chunks that were actually cited, and returns each as the real text excerpt the model used. So clicking a citation shows you the precise passage the answer came from, which is a stronger form of "show your work" than a page reference you still have to go hunting through. It also means a source only appears if it genuinely contributed to the answer.
 
 **The 4MB upload cap.** That is not arbitrary. It is the practical ceiling for a request on Vercel's serverless platform, which caps request bodies at 4.5MB. I set the limit just under it so a large file fails politely at the door instead of crashing mid-request.
 
@@ -48,8 +48,20 @@ Anyone can follow a RAG tutorial. The judgment shows in the choices, so here are
 Same philosophy as everything else I ship: assume it breaks, decide in advance how it behaves.
 
 - A password gate sits in front, so strangers and bots cannot burn API credits.
+- Rate limiting, built on Upstash Redis, caps how fast any one visitor can call the API. I named rate limiting as a missing piece in my first case study. It is built into this one.
 - Each stage, extraction, embedding, retrieval, handles its own failure and returns a readable message instead of a crash.
 - The "not in the document" case is handled on purpose. When the answer is not in the file, the tool says so. That is the single most important failure mode for a grounding tool, because the whole promise is that it will not make things up.
+
+## What it took to ship
+
+The pipeline worked on localhost the first night. Getting it working in production took four rounds of debugging, and each one was a lesson in how serverless actually behaves.
+
+1. **Large uploads died silently.** Vercel caps request bodies at 4.5MB, a hard platform limit. The fix was capping uploads at 4MB so an oversized file fails politely at the door instead of vanishing mid-request.
+2. **The live site could not reach the embedding API.** The Voyage key existed on my machine but not in Vercel's dashboard. Localhost and production are different houses with different vaults, and each needs its own copy of the key.
+3. **PDF parsing crashed only in production.** The original PDF library expected browser APIs that do not exist inside a serverless function, so it worked in every local test and died on the live site. Swapping to unpdf, which is built for serverless, fixed it.
+4. **Then even plain text files started failing.** The broken PDF dependency was being imported at the top of the module, which meant every request loaded it, whatever the file type. I diagnosed that one myself by reading the error trace: the import ran at load time, not at call time, so every route paid for a library only one branch needed. Moving the import inside the PDF path ended it.
+
+That last round is the reason this section exists. A demo that works in a controlled room is not the job. Production is, and the gap between the two is exactly where most enterprise AI dies.
 
 ## The honest limits
 
